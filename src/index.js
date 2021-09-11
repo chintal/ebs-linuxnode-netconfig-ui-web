@@ -5,8 +5,9 @@ import 'semantic-ui-css/semantic.min.css';
 import App from './App';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  // https://github.com/Semantic-Org/Semantic-UI-React/issues/4050
+  // <React.StrictMode>
+  <App />,
+  // </React.StrictMode>
   document.getElementById('root')
 );

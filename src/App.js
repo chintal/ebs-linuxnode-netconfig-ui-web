@@ -8,14 +8,13 @@ import {
   Switch, 
   Redirect } from "react-router-dom";
 
-import axios from "axios";
-
 import PublicRoute from "./Utils/PublicRoute";
 import PrivateRoute from "./Utils/PrivateRoute";
 
+import { netconfigApi } from "./Api";
 import { getToken, removeUserSession } from "./Utils/Auth";
 
-import Login from "./Components/Login";
+import Login from "./Components/Auth/Login";
 import NetConfig from "./Components/NetConfig/Main";
 
 
@@ -29,7 +28,7 @@ function App() {
         return;
       }
 
-      axios.get("http://localhost:8039/api/verifyToken", {
+      netconfigApi.get("verifyToken", {
         headers: {"Authorization": `Bearer ${token}`}
       }).then(response => {
         setAuthLoading(false);
