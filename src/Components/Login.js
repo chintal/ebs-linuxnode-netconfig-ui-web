@@ -1,8 +1,8 @@
+
 import React, { useState } from "react";
 import axios from "axios";
-import { Button } from "semantic-ui-react";
 
-import { setUserSession } from "./Utils/Auth";
+import { setUserSession } from "../Utils/Auth";
 
 
 const Login = (props) => {
@@ -23,7 +23,7 @@ const Login = (props) => {
         ).then(response => {
             setLoading(false);
             setUserSession(response.data.token, username);
-            props.history.push('/wifi');
+            props.history.push('/netconfig');
         }).catch(error => {
             setLoading(false);
             if (error.response.status === 401 || 

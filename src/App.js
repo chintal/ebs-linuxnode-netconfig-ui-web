@@ -1,14 +1,22 @@
 
-import React, {useEffect, useState} from "react";
-import { BrowserRouter, Switch, Route, NavLink, Redirect } from "react-router-dom";
+import React, {
+  useEffect, 
+  useState}  from "react";
 
-import About from "./About";
-import Login from "./Login";
-import Wifi from "./Wifi";
+import { 
+  BrowserRouter, 
+  Switch, 
+  Redirect } from "react-router-dom";
+
+import axios from "axios";
+
 import PublicRoute from "./Utils/PublicRoute";
 import PrivateRoute from "./Utils/PrivateRoute";
+
 import { getToken, removeUserSession } from "./Utils/Auth";
-import axios from "axios";
+
+import Login from "./Components/Login";
+import NetConfig from "./Components/NetConfig/Main";
 
 
 function App() {
@@ -38,17 +46,11 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Redirect exact from="/" to="/wifi" />
-        <div className="header">
-          <NavLink activeClassName="active" to="/wifi">Wifi</NavLink>
-          <NavLink activeClassName="active" to="/about">About</NavLink>
-          <NavLink activeClassName="active" to="/login">Login</NavLink>
-        </div>
+        <Redirect exact from="/" to="/netconfig" />
         <div className="content">
           <Switch>
-            <Route path="/about" component={About} />
             <PublicRoute path="/login" component={Login} />
-            <PrivateRoute path="/wifi" component={Wifi} />
+            <PrivateRoute path="/netconfig" component={NetConfig} />
           </Switch>
         </div>
       </BrowserRouter>

@@ -1,8 +1,9 @@
 import React from "react";
 import { Button } from "semantic-ui-react";
-import { getUser, removeUserSession } from "./Utils/Auth";
+import { getUser, removeUserSession } from "../../Utils/Auth";
+import Wifi from "./Wifi";
 
-const Wifi = (props) => {
+const NetConfig = (props) => {
     
     const user = getUser();
 
@@ -13,7 +14,8 @@ const Wifi = (props) => {
     
     return(
         <div>
-            Wifi Configuration Page <br />
+            <Wifi />
+            
             Logged in as {user}<br />
             <div>
                 <Button primary> Logout </Button>
@@ -27,4 +29,4 @@ const Wifi = (props) => {
     )
 }
 
-export default Wifi;
+export default NetConfig;
