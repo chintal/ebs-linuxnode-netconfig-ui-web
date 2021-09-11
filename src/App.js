@@ -23,14 +23,8 @@ function App() {
   const [authLoading, setAuthLoading] = useState(true);
 
   useEffect(() => {
-      const token = getToken();
-      if (!token){
-        return;
-      }
-
-      netconfigApi.get("verifyToken", {
-        headers: {"Authorization": `Bearer ${token}`}
-      }).then(response => {
+      netconfigApi.get("verifyToken"
+      ).then(response => {
         setAuthLoading(false);
       }).catch(error => {
         removeUserSession()

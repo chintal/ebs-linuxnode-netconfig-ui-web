@@ -1,15 +1,17 @@
 
 import React, { useState } from "react";
 
-import { netconfigApi } from "../../Api";
-import { setUserSession } from "../../Utils/Auth";
-
-import AuthLayout from "./Layout";
 import { 
     Button, 
     Form, 
     Message
 } from "semantic-ui-react";
+
+import { netconfigApi } from "../../Api";
+import { setUserSession } from "../../Utils/Auth";
+
+import AuthLayout from "./Layout";
+import PasswordField from "../Common/Password";
 
 
 const Login = (props) => {
@@ -69,13 +71,12 @@ const Login = (props) => {
               value={username}
               onChange={e => setUsername(e.target.value)}
             />
-            <Form.Input 
+            <PasswordField
               fluid 
               icon="lock"
               iconPosition="left"
               placeholder="Password"
               className="auth-input-field" 
-              type="password" 
               value={password}
               onChange={e => setPassword(e.target.value)}
             />
@@ -83,7 +84,9 @@ const Login = (props) => {
             {renderErrorMessage(error)}
 
             <Button 
-                color="teal" fluid size="huge"
+                color="teal" 
+                fluid
+                size="huge"
                 type="button" 
                 disabled={loading} 
                 onClick={handleLogin}

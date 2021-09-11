@@ -1,5 +1,4 @@
 
-
 import React, { Component} from "react";
 import { Form, Header } from "semantic-ui-react";
 
@@ -11,7 +10,7 @@ class AuthLayout extends Component {
     render() {
       return (
         <div className="auth-main">
-          <div class="auth-content">
+          <div className="auth-content">
             <div className="auth-card">
               <img src={logo} alt="Logo" className="auth-logo" />
               <Header as="h2" color="black" textAlign="center">
