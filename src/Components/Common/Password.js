@@ -44,7 +44,6 @@ class PasswordField extends Component{
                     <IconButton 
                       aria-label="toggle password visibility"
                       onClick={this.onToggleShowPassword}
-                      onMouseDown={this.onToggleShowPassword}
                     >
                       {showPassword ? <Visibility /> : <VisibilityOff />}
                     </IconButton>

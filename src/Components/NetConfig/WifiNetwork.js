@@ -76,8 +76,7 @@ const WifiNetwork = (props) => {
                         <IconButton 
                             aria-label="psk visibility toggle"
                             color="primary"
-                            onClick={onToggleShowPsk}
-                            onMouseDown={onToggleShowPsk}>
+                            onClick={onToggleShowPsk}>
                             {showPsk ? <Visibility /> : <VisibilityOff />}
                         </IconButton>
                         {/* <IconButton 
@@ -88,8 +87,7 @@ const WifiNetwork = (props) => {
                         <IconButton 
                             aria-label="delete"
                             color="secondary"
-                            onClick={handleRemove}
-                            onMouseDown={handleRemove}>
+                            onClick={handleRemove}>
                             <Delete />
                         </IconButton>
                     </ButtonGroup>
