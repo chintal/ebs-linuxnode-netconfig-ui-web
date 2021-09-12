@@ -1,6 +1,10 @@
 
 import React, {Component} from 'react';
-import { Form, Icon, Input } from 'semantic-ui-react';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Visibility from "@material-ui/icons/Visibility";
+import VisibilityOff from "@material-ui/icons/VisibilityOff";
 
 
 class PasswordField extends Component{
@@ -15,24 +19,33 @@ class PasswordField extends Component{
 
     render() {
         const { showPassword } = this.state;
-        const { value, placeholder, onChange, className } = this.props;
+        const { id, name, value, placeholder, onChange, className } = this.props;
 
         return (
-            <Form.Input 
-              fluid 
-              iconPosition="right"
-              placeholder={placeholder}
-              className={className} 
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name={name}
+              label={placeholder}
+              id={id}
               type={showPassword ? 'text' : 'password'}
               value={value}
               onChange={onChange}
-              icon={
-                  <Icon
-                    name={showPassword ? 'eye slash' : 'eye'}
-                    link
-                    onClick={this.onToggleShowPassword}
-                  />
-              }
+              InputProps={{
+                endAdornment: (
+                  <InputAdornment position="end">
+                    <IconButton 
+                      aria-label="toggle password visibility"
+                      onClick={this.onToggleShowPassword}
+                      onMouseDown={this.onToggleShowPassword}
+                    >
+                      {showPassword ? <Visibility /> : <VisibilityOff />}
+                    </IconButton>
+                  </InputAdornment>
+                )
+              }}
             />
         )
     }

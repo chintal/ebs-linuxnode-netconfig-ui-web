@@ -2,6 +2,7 @@
 import React, { Component} from "react";
 import "./base.css";
 
+
 class BaseLayout extends Component {
     render() {
       return (

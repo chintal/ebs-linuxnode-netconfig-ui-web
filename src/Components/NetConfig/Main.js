@@ -1,14 +1,32 @@
-import React, {useState} from "react";
-import { 
-    Accordion,
-    Button, 
-    Icon,
-    Message,
-    Segment} from "semantic-ui-react";
 
-import { getUser, removeUserSession } from "../../Utils/Auth";
+import React, {useState} from "react";
+
+import {
+    Button,
+    Typography,
+    Accordion,
+    AccordionSummary,
+    AccordionDetails
+} from "@material-ui/core";
+
+import {
+    Wifi as WifiIcon,
+    ExpandMore,
+} from "@material-ui/icons";
+
+import {
+    Alert 
+} from "@material-ui/lab";
+
+
+import { 
+    getUser, 
+    removeUserSession 
+} from "../../Utils/Auth";
+
 import Wifi from "./Wifi";
 import BaseLayout from "../../Layouts/Base";
+import "./netconfig.css";
 
 
 const NetConfig = (props) => {
@@ -20,41 +38,32 @@ const NetConfig = (props) => {
         props.history.push('/login')
     }
 
-    const [activeIndex, setActiveIndex] = useState(0);
-
-    const handleClick = (e, titleProps) => {
-        const { index } = titleProps
-        const newIndex = activeIndex === index ? -1 : index
-        setActiveIndex(newIndex)
-    }
-    
     return(
         <BaseLayout> 
-        <Segment fluid="true">
-        <Accordion fluid styled>
-            <Accordion.Title
-                active={activeIndex === 0}
-                index={0}
-                onClick={handleClick}
+        <Accordion defaultExpanded>
+            <AccordionSummary
+                expandIcon={<ExpandMore />}
+                aria-controls="wifi-panel-content"
+                id="wifi-panel-header"
             >
-                <Icon name="wifi" /> Wifi Configuration
-            </Accordion.Title>
-            <Accordion.Content active={activeIndex === 0}>
+                <WifiIcon />
+                <Typography variant="h5">
+                    Wifi Configuration
+                </Typography>
+            </AccordionSummary>
+            <AccordionDetails>
                 <Wifi />
-            </Accordion.Content>
+            </AccordionDetails>
         </Accordion>
-        </Segment>
-        <Segment fluid="true">
-        <Message> Logged in as {user} </Message>
+        
+        <Alert severity="info"> Logged in as {user} </Alert>
         <Button 
-            color="red" 
-            fluid
-            size="medium"
-            type="button" 
+            variant="contained" 
+            color="secondary"
             onClick={handleLogout}
+            fullWidth
         > Logout
         </Button>
-        </Segment>
         </BaseLayout>
     )
 }

@@ -1,0 +1,8 @@
+.network-header {
+    padding-top: 5px !important;
+    padding-bottom: 0 !important;
+}
+.network-detail {
+    padding-top: 0 !important;
+    padding-bottom: 5px !important;
+}

@@ -1,11 +1,15 @@
 
 import React, { useState } from "react";
 
+import {
+    Button,
+    TextField
+} from "@material-ui/core";
+
 import { 
-    Button, 
-    Form, 
-    Message
-} from "semantic-ui-react";
+    Alert,
+    AlertTitle
+} from "@material-ui/lab";
 
 import { netconfigApi } from "../../Api";
 import { setUserSession } from "../../Utils/Auth";
@@ -33,6 +37,7 @@ const Login = (props) => {
             setUserSession(response.data.token, username);
             props.history.push('/netconfig');
         }).catch(error => {
+            console.log(error)
             setLoading(false);
             if (error.response.status === 401 || 
                 error.response.status === 400){
@@ -50,29 +55,30 @@ const Login = (props) => {
 
     const renderErrorMessage = (e) => {
         if (e){
-            return <Message 
-                error     
-                header="Login Failed"
-                content={e} 
-                icon="exclamation triangle"
-            />;
+            return <Alert severity="error">
+                <AlertTitle>Login Failed</AlertTitle>
+                {e} 
+            </Alert>;
         }
     }
 
     return(
         <AuthLayout header="Network Configuration Utility">
-            <Form.Input 
-              fluid 
-              icon="user"
-              iconPosition="left"
-              placeholder="Username"
-              className="auth-input-field" 
-              type="text" 
+            <TextField
+              variant="outlined"
+              margin="normal" 
+              required
+              fullWidth
+              id="username"
+              label="User Name"
+              name="username"
+              autoFocus
               value={username}
               onChange={e => setUsername(e.target.value)}
             />
             <PasswordField
-              fluid 
+              name="password"
+              id="password"
               icon="lock"
               iconPosition="left"
               placeholder="Password"
@@ -84,12 +90,11 @@ const Login = (props) => {
             {renderErrorMessage(error)}
 
             <Button 
-                color="teal" 
-                fluid
-                size="huge"
-                type="button" 
+                variant="contained"
+                color="primary"
                 disabled={loading} 
                 onClick={handleLogin}
+                fullWidth
             >
             {loading ? "Loading..." : "Login"}
             </Button>

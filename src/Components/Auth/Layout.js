@@ -1,6 +1,9 @@
 
 import React, { Component} from "react";
-import { Form, Header } from "semantic-ui-react";
+import {
+  FormGroup,
+  Typography
+} from "@material-ui/core"
 
 import "./auth.css";
 import logo from "../../Resources/logo.png";
@@ -13,12 +16,12 @@ class AuthLayout extends Component {
           <div className="auth-content">
             <div className="auth-card">
               <img src={logo} alt="Logo" className="auth-logo" />
-              <Header as="h2" color="black" textAlign="center">
+              <Typography variant="h5" component="h2" color="black" textAlign="center">
                 {this.props.header}
-              </Header>
-              <Form.Group size="large" className="auth-form">
+              </Typography>
+              <FormGroup size="large" className="auth-form">
                 {this.props.children}
-              </Form.Group>
+              </FormGroup>
             </div>
           </div>
         </div>
