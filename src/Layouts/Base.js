@@ -1,5 +1,6 @@
 
 import React, { Component} from "react";
+import StickyFooter from "../Components/Common/StickyFooter";
 import "./base.css";
 
 
@@ -10,6 +11,7 @@ class BaseLayout extends Component {
           <div className="base-content">
             {this.props.children}
           </div>
+          <StickyFooter />
         </div>
       );
     }
