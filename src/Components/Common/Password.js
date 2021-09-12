@@ -19,7 +19,11 @@ class PasswordField extends Component{
 
     render() {
         const { showPassword } = this.state;
-        const { id, name, value, placeholder, onChange, className } = this.props;
+        const { 
+          id, name, value, 
+          placeholder, 
+          onChange, 
+          className } = this.props;
 
         return (
             <TextField
@@ -33,6 +37,7 @@ class PasswordField extends Component{
               type={showPassword ? 'text' : 'password'}
               value={value}
               onChange={onChange}
+              className={className}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">

@@ -82,7 +82,6 @@ const Login = (props) => {
               icon="lock"
               iconPosition="left"
               placeholder="Password"
-              className="auth-input-field" 
               value={password}
               onChange={e => setPassword(e.target.value)}
             />

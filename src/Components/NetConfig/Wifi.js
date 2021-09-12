@@ -2,9 +2,10 @@ import React, {useEffect, useState} from "react";
 
 import { 
     Grid,
+    withStyles
 } from "@material-ui/core";
 
-import { withStyles } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 
 import { netconfigApi } from "../../Api";
 
@@ -20,11 +21,13 @@ const styles = theme => ({
 
 const Wifi = (props) => {
     const [wifiNetworks, setWifiNetworks] = useState([]);
+    // eslint-disable-next-line 
     const [wifiNetworksLoading, setWifiNetworksLoading] = useState(true);
 
     const {classes} = props;
 
     useEffect(() => {
+        setWifiNetworksLoading(true);
         netconfigApi.get("wifi/networks/show"
         ).then(response => {
             setWifiNetworks(response.data);
@@ -40,9 +43,19 @@ const Wifi = (props) => {
         setWifiNetworks(updatedWifiNetworks);
     }
 
+    const removeWifiNetwork = (ssid) => {
+        const updatedWifiNetworks = wifiNetworks.filter(
+            (network) => network.ssid !== ssid);
+        setWifiNetworks(updatedWifiNetworks);
+    }
+
     return(
         <div width="100%" className={classes.root}>
             <h4> Configured Wifi Networks </h4>
+            <Alert severity="info"> 
+            There {wifiNetworks.length === 1 ? "is " : "are "} 
+            {wifiNetworks.length} configured Wifi network
+            {wifiNetworks.length === 1 ? "" : "s"} </Alert>
             <Grid container spacing={2} width="100%">
               {wifiNetworks && wifiNetworks.map(network=>{
                 return(
@@ -50,6 +63,7 @@ const Wifi = (props) => {
                         ssid={network.ssid} 
                         psk={network.psk}
                         key={network.ssid}
+                        onRemove={removeWifiNetwork}
                     />
                 )
               })}

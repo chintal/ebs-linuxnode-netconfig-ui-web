@@ -7,6 +7,10 @@ import {
     TextField,
 } from "@material-ui/core";
 
+import { 
+    Alert,
+    AlertTitle } from "@material-ui/lab";
+
 import PasswordField from "../Common/Password";
 import { netconfigApi } from "../../Api";
 
@@ -31,7 +35,39 @@ const AddWifiNetwork = (props) => {
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.handler(newWifiNetwork);
+        setError(null);
+        setProcessing(true);
+        netconfigApi.post("wifi/networks/add",
+            newWifiNetwork
+        ).then(response => {
+            props.handler(newWifiNetwork);    
+            setProcessing(false);
+        }).catch(error => {
+          console.log(error);
+          setProcessing(false);
+          if (error.response.status === 401 || 
+              error.response.status === 400 ||
+              error.response.status === 409 ||
+              error.response.status === 416){
+                setError(error.response.data.detail);
+          }
+          else if (error.response.status === 422){
+            // TODO See about making the error actually printable
+            setError("Required field is missing or incorrectly formatted.");
+          }
+          else {
+            setError("Something went wrong. Please report this error.");
+          }
+        })
+    }
+    
+    const renderErrorMessage = (e) => {
+        if (e){
+            return <Alert severity="error">
+                <AlertTitle>Add Network Failed</AlertTitle>
+                {e} 
+            </Alert>;
+        }
     }
 
     return (
@@ -61,6 +97,9 @@ const AddWifiNetwork = (props) => {
                         value={newWifiNetwork.psk}
                         onChange={handleInputChange}
                     />
+                </Grid>
+                <Grid item xs={12}>
+                    {renderErrorMessage(error)}
                 </Grid>
                 <Grid item xs={12}>
                     <Button 
