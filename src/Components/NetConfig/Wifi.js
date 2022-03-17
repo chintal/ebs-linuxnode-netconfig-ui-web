@@ -23,7 +23,7 @@ const Wifi = (props) => {
     const [wifiNetworks, setWifiNetworks] = useState([]);
     // eslint-disable-next-line 
     const [wifiNetworksLoading, setWifiNetworksLoading] = useState(true);
-
+    const [wifiManagerNote, setWifiManagerNote] = useState("");
     const {classes} = props;
 
     useEffect(() => {
@@ -35,6 +35,10 @@ const Wifi = (props) => {
         }).catch(error => {
           console.log(error);
           setWifiNetworksLoading(false);
+        })
+        netconfigApi.get("wifi/note"
+        ).then(response => {
+            setWifiManagerNote(response.data);
         })
     }, []);
 
@@ -52,6 +56,9 @@ const Wifi = (props) => {
     return(
         <div width="100%" className={classes.root}>
             <h4> Configured Wifi Networks </h4>
+            {wifiManagerNote &&
+            <Alert severity="warning"> {wifiManagerNote} </Alert>
+            }
             <Alert severity="info"> 
             There {wifiNetworks.length === 1 ? "is " : "are "} 
             {wifiNetworks.length} configured Wifi network
